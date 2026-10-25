@@ -86,7 +86,7 @@ $('#settingsBtn').onclick=()=>$('#importFile').click();
 $('#feedbackBtn').onclick=()=>toast('反馈入口将在后续版本中开放');
 $('#notifyBtn').onclick=()=>{const events=recordEventsOn(today());toast(events.length?`今天有 ${events.length} 条投递/流程记录`:'今天暂无投递或流程记录')};
 $('#notifyBtn').onclick=()=>{const events=recordEventsOn(today());toast(events.length?`今天有 ${events.length} 条投递/流程记录`:'今天暂无投递或流程记录')};
-$('importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data.records))throw Error();if(!confirm('导入会替换当前浏览器中的投递记录，建议先导出备份。继续吗？'))return;legacyData={companies:Array.isArray(data.companies)?data.companies:[],review:data.review||''};records=data.records.map(normalize);save();render();toast('备份已导入')}catch{toast('备份文件格式无效，未导入')}e.target.value=''};
+$('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data.records))throw Error();if(!confirm('导入会替换当前浏览器中的投递记录，建议先导出备份。继续吗？'))return;legacyData={companies:Array.isArray(data.companies)?data.companies:[],review:data.review||''};records=data.records.map(normalize);save();render();toast('备份已导入')}catch{toast('备份文件格式无效，未导入')}e.target.value=''};
 load();render();window.addEventListener('storage',e=>{if(e.key===KEY){load();render()}});
 })();
 
@@ -107,6 +107,7 @@ load();render();window.addEventListener('storage',e=>{if(e.key===KEY){load();ren
 
 
 </script></body></html>
+
 
 
 
